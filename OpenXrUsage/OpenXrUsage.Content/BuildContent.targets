@@ -1,0 +1,12 @@
+<Project>
+  <Target Name="BuildContent" BeforeTargets="BeforeCompile">
+    <PropertyGroup>
+      <ContentOutput>$(ProjectDir)$(OutputPath)</ContentOutput>
+      <ContentTemp>$(ProjectDir)$(IntermediateOutputPath)</ContentTemp>
+      <ContentArgs>build -p $(MonoGamePlatform) -s OpenXrUsage.Content/Assets -o $(ContentOutput) -i $(ContentTemp)</ContentArgs>
+      <ContentCommand>$(MSBuildThisFileDirectory)bin\Debug\OpenXrUsage.Content</ContentCommand>
+    </PropertyGroup>
+    <MSBuild Projects="$(MSBuildThisFileDirectory)OpenXrUsage.Content.csproj" Targets="Build" RemoveProperties="Configuration;TargetFramework;RuntimeIdentifier;RuntimeIdentifiers" />
+    <Exec Command="$(ContentCommand) $(ContentArgs)" WorkingDirectory="$(MSBuildThisFileDirectory)..\" CustomErrorRegularExpression="\[E\] .+" CustomWarningRegularExpression="\[W\] .+" />
+   </Target>
+</Project>

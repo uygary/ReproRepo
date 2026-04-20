@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Platforms/">
+    <Project Path="OpenXrUsage.DesktopVK/OpenXrUsage.DesktopVK.csproj" />
+    <Project Path="OpenXrUsage.WindowsDX12/OpenXrUsage.WindowsDX12.csproj" />
+  </Folder>
+  <Project Path="OpenXrUsage.Content/OpenXrUsage.Content.csproj" />
+  <Project Path="OpenXrUsage.Core/OpenXrUsage.Core.csproj" />
+</Solution>
