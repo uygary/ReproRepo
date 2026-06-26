@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <RollForward>Major</RollForward>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>WmfVideo</AssemblyName>
+    <AssemblyTitle>WmfVideo</AssemblyTitle>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="..\WmfVideo.Core\Content\WmfVideo.mgcb">
+      <Link>Content\WmfVideo.mgcb</Link>
+    </MonoGameContentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WmfVideo.Core\WmfVideo.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.5-local.*" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.5-preview.*" />
+  </ItemGroup>
+</Project>
