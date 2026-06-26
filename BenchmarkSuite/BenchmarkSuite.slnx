@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BenchmarkSuite.MemoryPack/BenchmarkSuite.MemoryPack.csproj" Id="f75e50c7-8bee-4188-adaf-2ae45c56ecdc" />
+  <Project Path="BenchmarkSuite/BenchmarkSuite.csproj" />
+</Solution>
