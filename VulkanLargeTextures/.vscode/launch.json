@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "VulkanLargeTextures (DesktopGL)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/VulkanLargeTextures.DesktopGL/VulkanLargeTextures.DesktopGL.csproj",
+            "preLaunchTask": "Build: VulkanLargeTextures.DesktopGL"
+        },
+        {
+            "name": "VulkanLargeTextures (DesktopVK)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/VulkanLargeTextures.DesktopVK/VulkanLargeTextures.DesktopVK.csproj",
+            "preLaunchTask": "Build: VulkanLargeTextures.DesktopVK"
+        },
+        {
+            "name": "VulkanLargeTextures (WindowsDX12)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/VulkanLargeTextures.WindowsDX12/VulkanLargeTextures.WindowsDX12.csproj",
+            "preLaunchTask": "Build: VulkanLargeTextures.WindowsDX12"
+        },
+        {
+            "name": "VulkanLargeTextures (Android / iOS)",
+            "type": "maui",
+            "request": "launch",
+            "preLaunchTask": "maui: Build"
+        }
+    ]
+}

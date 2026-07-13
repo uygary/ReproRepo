@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Platforms/">
+    <Project Path="VulkanLargeTextures.DesktopGL/VulkanLargeTextures.DesktopGL.csproj" />
+    <Project Path="VulkanLargeTextures.DesktopVK/VulkanLargeTextures.DesktopVK.csproj" />
+    <Project Path="VulkanLargeTextures.WindowsDX12/VulkanLargeTextures.WindowsDX12.csproj" />
+  </Folder>
+  <Project Path="VulkanLargeTextures.Content/VulkanLargeTextures.Content.csproj" />
+  <Project Path="VulkanLargeTextures.Core/VulkanLargeTextures.Core.csproj" />
+</Solution>
