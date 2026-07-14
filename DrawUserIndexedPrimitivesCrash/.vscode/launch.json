@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DrawUserIndexedPrimitivesCrash (DesktopGL)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/DrawUserIndexedPrimitivesCrash.DesktopGL/DrawUserIndexedPrimitivesCrash.DesktopGL.csproj",
+            "preLaunchTask": "Build: DrawUserIndexedPrimitivesCrash.DesktopGL"
+        },
+        {
+            "name": "DrawUserIndexedPrimitivesCrash (DesktopVK)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/DrawUserIndexedPrimitivesCrash.DesktopVK/DrawUserIndexedPrimitivesCrash.DesktopVK.csproj",
+            "preLaunchTask": "Build: DrawUserIndexedPrimitivesCrash.DesktopVK"
+        },
+        {
+            "name": "DrawUserIndexedPrimitivesCrash (WindowsDX12)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/DrawUserIndexedPrimitivesCrash.WindowsDX12/DrawUserIndexedPrimitivesCrash.WindowsDX12.csproj",
+            "preLaunchTask": "Build: DrawUserIndexedPrimitivesCrash.WindowsDX12"
+        },
+        {
+            "name": "DrawUserIndexedPrimitivesCrash (Android / iOS)",
+            "type": "maui",
+            "request": "launch",
+            "preLaunchTask": "maui: Build"
+        }
+    ]
+}

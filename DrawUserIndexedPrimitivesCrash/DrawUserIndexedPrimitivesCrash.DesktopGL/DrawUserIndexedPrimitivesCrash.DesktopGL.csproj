@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../DrawUserIndexedPrimitivesCrash.Core/Assets/Icon.ico</ApplicationIcon>
+    <AssemblyName>DrawUserIndexedPrimitivesCrash</AssemblyName>
+    <MonoGamePlatform>DesktopGL</MonoGamePlatform>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DrawUserIndexedPrimitivesCrash.Core\DrawUserIndexedPrimitivesCrash.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+      <UpToDateCheckInput Include="..\Content\Assets\**\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5-preview.*" />
+  </ItemGroup>
+  <Import Project="..\DrawUserIndexedPrimitivesCrash.Content\BuildContent.targets" />
+</Project>

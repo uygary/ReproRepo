@@ -1,0 +1,9 @@
+﻿<Solution>
+  <Folder Name="/Platforms/">
+    <Project Path="DrawUserIndexedPrimitivesCrash.DesktopGL/DrawUserIndexedPrimitivesCrash.DesktopGL.csproj" />
+    <Project Path="DrawUserIndexedPrimitivesCrash.DesktopVK/DrawUserIndexedPrimitivesCrash.DesktopVK.csproj" />
+    <Project Path="DrawUserIndexedPrimitivesCrash.WindowsDX12/DrawUserIndexedPrimitivesCrash.WindowsDX12.csproj" />
+  </Folder>
+  <Project Path="DrawUserIndexedPrimitivesCrash.Content/DrawUserIndexedPrimitivesCrash.Content.csproj" />
+  <Project Path="DrawUserIndexedPrimitivesCrash.Core/DrawUserIndexedPrimitivesCrash.Core.csproj" />
+</Solution>
