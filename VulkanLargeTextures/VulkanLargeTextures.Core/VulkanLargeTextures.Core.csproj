@@ -4,7 +4,10 @@
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
+    <!--
     <PackageReference Include="MonoGame.Framework.Native" Version="3.8.5-preview.*">
+    -->
+    <PackageReference Include="MonoGame.Framework.Native" Version="3.8.5-local.*">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>

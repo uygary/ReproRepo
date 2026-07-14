@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using VulkanLargeTextures.Core.Localization;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -20,6 +21,9 @@ namespace VulkanLargeTextures.Core
     public class VulkanLargeTexturesGame : Game
     {
         private static readonly ushort LoadMultiplier = 10;
+        private static readonly bool Resize = true;
+        private static readonly bool Parallelization = true;
+        private static readonly bool SkipFrame = false;
         
         // Resources for drawing.
         private GraphicsDeviceManager _graphicsDeviceManager;
@@ -42,6 +46,10 @@ namespace VulkanLargeTextures.Core
         private long? _texturesLoadedIn;
         private long? _texturesRenderedIn;
         private long? _presentedIn;
+        private ulong _tick;
+        private ulong _frame;
+        private ParallelLoopResult _parallelLoopResult;
+        private bool _pendingParallelLoad;
 
         /// <summary>
         /// Initializes a new instance of the game. Configures platform-specific settings, 
@@ -86,9 +94,12 @@ namespace VulkanLargeTextures.Core
             var selectedLanguage = LocalizationManager.DEFAULT_CULTURE_CODE;
             LocalizationManager.SetCulture(selectedLanguage);
 
-            _graphicsDeviceManager.PreferredBackBufferWidth = 1920;
-            _graphicsDeviceManager.PreferredBackBufferHeight = 1080;
-            _graphicsDeviceManager.ApplyChanges();
+            if (Resize)
+            {
+                _graphicsDeviceManager.PreferredBackBufferWidth = 1920;
+                _graphicsDeviceManager.PreferredBackBufferHeight = 1080;
+                _graphicsDeviceManager.ApplyChanges();
+            }
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
@@ -110,16 +121,31 @@ namespace VulkanLargeTextures.Core
                 .Select(Path.GetFileNameWithoutExtension)
                 .ToList();
 
-            for (var i = 0; i < LoadMultiplier; i++)
+            if (Parallelization)
             {
-                Console.WriteLine($@"Loading batch {i}...");
-                var contentManager = new ContentManager(Services, contentRoot);
-                var textures = textureFiles
-                    .Select(contentManager.Load<Texture2D>);
-
-                foreach (var texture in textures)
+                _parallelLoopResult = Parallel.For(0, LoadMultiplier, (i, state) =>
                 {
-                    _textures.AddRange(texture);
+                    Console.WriteLine($@"Loading batch {i}...");
+                    var contentManager = new ContentManager(Services, contentRoot);
+                    var textures = textureFiles
+                        .Select(contentManager.Load<Texture2D>);
+
+                    foreach (var texture in textures)
+                    {
+                        _textures.Add(texture);
+                    }
+                });
+            }
+            else
+            {
+                for (var i = 0; i < LoadMultiplier; i++)
+                {
+                    Console.WriteLine($@"Loading batch {i}...");
+                    var contentManager = new ContentManager(Services, contentRoot);
+                    var textures = textureFiles
+                        .Select(contentManager.Load<Texture2D>);
+
+                    _textures.AddRange(textures);
                 }
             }
 
@@ -143,6 +169,10 @@ namespace VulkanLargeTextures.Core
             var viewportSize = GraphicsDevice.Viewport.Bounds.Size;
             _rectangle = new Rectangle(0, 0, viewportSize.X, viewportSize.Y);
 
+            _tick += 1;
+
+            _pendingParallelLoad = Parallelization && !_parallelLoopResult.IsCompleted;
+
             base.Update(gameTime);
         }
 
@@ -158,19 +188,25 @@ namespace VulkanLargeTextures.Core
             GraphicsDevice.Clear(Color.MonoGameOrange);
 
             _stopwatch.Restart();
-            _spriteBatch.Begin();
-            for (var i = 0; i < _textures.Count; i++)
+            
+            if (!_pendingParallelLoad && (!SkipFrame || _frame > 0))
             {
-                var texture = _textures[i];
-                _spriteBatch.Draw(texture, _rectangle, Color.White * 0.5f);
+                _spriteBatch.Begin();
+                
+                for (var i = 0; i < _textures.Count; i++)
+                {
+                    var texture = _textures[i];
+                    _spriteBatch.Draw(texture, _rectangle, Color.White * 0.5f);
+                }
+
+                _spriteBatch.End();
             }
 
             base.Draw(gameTime);
             
-            _spriteBatch.End();
             _stopwatch.Stop();
 
-            if (!_texturesRenderedIn.HasValue)
+            if (!_pendingParallelLoad && (!SkipFrame || _frame > 0) && !_texturesRenderedIn.HasValue)
             {
                 _texturesRenderedIn = _stopwatch.ElapsedMilliseconds;
 
@@ -186,11 +222,13 @@ namespace VulkanLargeTextures.Core
             base.EndDraw();
 
             _stopwatch.Stop();
-            if (!_presentedIn.HasValue)
+            if (!_pendingParallelLoad && (!SkipFrame || _frame > 0) && !_presentedIn.HasValue)
             {
                 _presentedIn = _stopwatch.ElapsedMilliseconds;
                 Console.WriteLine($@"Presented in: {_presentedIn} ms");
             }
+
+            _frame += 1;
         }
     }
 }
